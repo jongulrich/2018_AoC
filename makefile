@@ -16,5 +16,5 @@ FLAGS=-std=c++11
 .PHONY: 3
 3:
 	
-	$(CC) -o run3a 3a.cpp $(FLAGS) 
+	$(CC) -o run3a 3a.cpp $(FLAGS)
 
