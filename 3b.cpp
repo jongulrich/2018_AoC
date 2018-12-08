@@ -25,6 +25,7 @@ public:
             height = 0;   
             destination.x = 0;
             destination.y = 0;
+            hasOverlap = false;
         };
 
         Fabric(std::string str) { 
@@ -37,6 +38,7 @@ public:
         int width;
         int height;
         Pair destination;
+        bool hasOverlap;
 private:
 
         void populateObject(std::string str)
@@ -51,7 +53,7 @@ private:
 };
 
 std::ostream &operator<<(std::ostream &os, Fabric const &f) { 
-    os <<"#(ID) = " << f.id << ", origin(" << f.origin.x << "," << f.origin.y << "), width=" << f.width << ", length=" << f.height << ", destination("<<f.destination.x << ","<< f.destination.y <<")";
+    os <<"#(ID) = " << f.id << ", origin(" << f.origin.x << "," << f.origin.y << "), width=" << f.width << ", length=" << f.height << ", destination("<<f.destination.x << ","<< f.destination.y <<"), hasOverlap = " << f.hasOverlap;
 }
 
 int getOverlapAmount(Fabric f1, Fabric f2)
@@ -112,7 +114,24 @@ int main()
             }
         }
 
-        
+//Update overlap flag
+        for (auto& it : inputVector) {
+            std::cout << *it << std::endl;
+
+            for (int i = it->origin.x; i <= it->destination.x; i++)
+            {
+                for (int j = it->origin.y; j <= it->destination.y;j++)
+                {
+                    if (fabricMap[i][j] > 1)
+                    {
+                        std::cout << "ID # '"<< it->id <<"' has overlap at ("<<i<< "," <<j<<")" << std::endl;
+                        it->hasOverlap = true;
+                    }
+                }
+            }
+        }
+
+//Count amount of overlap
         for(int i = 0; i < maxWidth;i++)
         {
             for(int j = 0; j < maxHeight;j++)
@@ -126,6 +145,14 @@ int main()
         }
 
         std::cout << "Number of Square Inches Overlapping: " << overlapCount << std::endl;
+
+
+        for (auto& it : inputVector) {
+            if (it->hasOverlap == false)
+            {
+                std::cout << "ID # '"<< it->id <<"' has no overlap"<< std::endl;
+            }
+        }
     }
 
     return 0;

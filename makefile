@@ -1,6 +1,6 @@
 all: 1 2 3
 CC=g++
-FLAGS=-std=c++11
+FLAGS=-std=c++11 -g
 
 .PHONY: 1
 1:
@@ -17,4 +17,4 @@ FLAGS=-std=c++11
 3:
 	
 	$(CC) -o run3a 3a.cpp $(FLAGS)
-
+	$(CC) -o run3b 3b.cpp $(FLAGS)
